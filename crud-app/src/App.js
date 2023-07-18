@@ -1,6 +1,9 @@
 import './App.css';
 import Table from './components/Table'
 import {useState, useEffect} from 'react'
+import Form from './components/Form'
+import "../node_modules/bootstrap/dist/css/bootstrap.css"
+
 
 function App() {
 
@@ -8,9 +11,37 @@ function App() {
   const [users, setUsers] = useState([{
     name: '',
     jobTitle: '',
-    companyName: '',
+    companyName: ''
   },
 ])
+const [newUser, setNewUser] = useState([{
+  name: '',
+  jobTitle: '',
+  companyName: ''
+},
+])
+
+function handleName (nameValue) {
+  setNewUser({
+    ...newUser,
+    name: nameValue,
+  })
+}
+
+function handleJobTitle (jobValue) {
+  setNewUser({
+    ...newUser,
+    jobTitle: jobValue,
+    })
+
+}
+
+function handleCompanyName (companyNameValue) {
+  setNewUser({
+    ...newUser,
+    companyName: companyNameValue
+  })
+}
 
 useEffect(()=> {
   fetch(MOCK_API_URL)
@@ -27,7 +58,17 @@ const getUsers = () => {
     .then((data => setUsers(data)))
 }
 
-//const postUsers = () => {}
+const postUser = (e) => {
+  e.preventDefault();
+  console.log("doing post user")
+
+  fetch(MOCK_API_URL, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(newUser)
+  }).then(() => getUsers())
+
+}
 
 //const deleteUsers = () => {}
 
@@ -36,6 +77,11 @@ const getUsers = () => {
 
 return (
   <div className="App">
+    <Form 
+      postUser={postUser}
+      handleName={handleName} 
+      handleJobTitle={handleJobTitle}
+      handleCompanyName={handleCompanyName}/>
     <Table users={users}/>
   </div>
 );

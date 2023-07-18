@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Table({users}) {
     return (
-        <table>
+        <table className='table'>
             <caption>My Table</caption>
             <thead>
             <tr>
