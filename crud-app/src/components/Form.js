@@ -14,8 +14,8 @@ export default function Form({
             <label>Job Title</label>
             <input onChange={(e) => handleJobTitle(e.target.value)}></input>
             <label>Company</label>
-            <input onChange={(e) => handleCompanyName(e.target.value)}></input>
-            <button>Submit</button>
+            <input onChange={(e) => handleCompanyName(e.target.value)}></input><br/>
+            <button className='btn btn-primary'>Submit</button>
         </form>
     )
 }

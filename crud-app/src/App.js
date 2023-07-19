@@ -70,7 +70,13 @@ const postUser = (e) => {
 
 }
 
-//const deleteUsers = () => {}
+const deleteUser = (id) => {
+  console.log('deleting user')
+
+  fetch(`${MOCK_API_URL}/${id}`, {
+    method: 'DELETE',
+  }).then(() => getUsers())
+}
 
 //const updateUsers = () => {}
 
@@ -81,8 +87,11 @@ return (
       postUser={postUser}
       handleName={handleName} 
       handleJobTitle={handleJobTitle}
-      handleCompanyName={handleCompanyName}/>
-    <Table users={users}/>
+      handleCompanyName={handleCompanyName}
+    />
+    <Table 
+      deleteUser={deleteUser}
+      users={users}/>
   </div>
 );
 }
