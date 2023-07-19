@@ -21,16 +21,17 @@ const [newUser, setNewUser] = useState([{
 },
 ])
 
+
 const [updatedName, setUpdatedName] = useState('')
 
 function handleUpdatedName (updatedNameValue) {
   setUpdatedName(updatedNameValue)
   
+
 }
 
 const clearName = () => {
-  setUpdatedName('');
-  console.log('name cleared')
+  setUpdatedName('')
 }
 
 function handleName (nameValue) {
@@ -55,27 +56,20 @@ function handleCompanyName (companyNameValue) {
   })
 }
 
-useEffect(()=> {
-  fetch(MOCK_API_URL)
-  .then((data) => data.json())
-  .then((data => setUsers(data)))
-}, [])
+//populates data on page visit
+useEffect(()=> {getUsers()}, [])
 
 
 const getUsers = () => {
-  console.log('doing getUsers funtion')
 
   fetch(MOCK_API_URL)
     .then((data) => data.json())
     .then((data => setUsers(data)))
-    .then(
-
-    clearName())
+   
 }
 
 const postUser = (e) => {
   e.preventDefault();
-  console.log("doing post user")
 
   fetch(MOCK_API_URL, {
     method: 'POST',
@@ -83,15 +77,10 @@ const postUser = (e) => {
     body: JSON.stringify(newUser)
   }).then(() => getUsers())
 
-  setNewUser({
-    name: '',
-    jobTitle: '',
-    companyName: ''
-  })
+  e.target.reset()
 }
 
 const deleteUser = (id) => {
-  console.log('deleting user')
 
   fetch(`${MOCK_API_URL}/${id}`, {
     method: 'DELETE',
@@ -99,7 +88,6 @@ const deleteUser = (id) => {
 }
 
 const updateUser = (user) => {
-  console.log('updating user name')
   let updatedUser = user
   updatedUser.name = updatedName
   fetch(`${MOCK_API_URL}/${user.id}`, {
@@ -107,6 +95,7 @@ const updateUser = (user) => {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(updatedUser)
   }).then(() => getUsers())
+
 
   
 }
@@ -122,6 +111,7 @@ return (
       handleCompanyName={handleCompanyName}
     />
     <Table 
+      clearName={clearName}
       updatedName={updatedName}
       deleteUser={deleteUser}
       users={users}
