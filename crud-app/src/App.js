@@ -21,6 +21,18 @@ const [newUser, setNewUser] = useState([{
 },
 ])
 
+const [updatedName, setUpdatedName] = useState('')
+
+function handleUpdatedName (updatedNameValue) {
+  setUpdatedName(updatedNameValue)
+  
+}
+
+const clearName = () => {
+  setUpdatedName('');
+  console.log('name cleared')
+}
+
 function handleName (nameValue) {
   setNewUser({
     ...newUser,
@@ -56,6 +68,9 @@ const getUsers = () => {
   fetch(MOCK_API_URL)
     .then((data) => data.json())
     .then((data => setUsers(data)))
+    .then(
+
+    clearName())
 }
 
 const postUser = (e) => {
@@ -68,6 +83,11 @@ const postUser = (e) => {
     body: JSON.stringify(newUser)
   }).then(() => getUsers())
 
+  setNewUser({
+    name: '',
+    jobTitle: '',
+    companyName: ''
+  })
 }
 
 const deleteUser = (id) => {
@@ -78,20 +98,36 @@ const deleteUser = (id) => {
   }).then(() => getUsers())
 }
 
-//const updateUsers = () => {}
+const updateUser = (user) => {
+  console.log('updating user name')
+  let updatedUser = user
+  updatedUser.name = updatedName
+  fetch(`${MOCK_API_URL}/${user.id}`, {
+    method: 'PUT',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(updatedUser)
+  }).then(() => getUsers())
+
+  
+}
 
 
 return (
   <div className="App">
     <Form 
+      newUser={newUser}
       postUser={postUser}
       handleName={handleName} 
       handleJobTitle={handleJobTitle}
       handleCompanyName={handleCompanyName}
     />
     <Table 
+      updatedName={updatedName}
       deleteUser={deleteUser}
-      users={users}/>
+      users={users}
+      updateUser={updateUser}
+      handleUpdatedName={handleUpdatedName}
+    />
   </div>
 );
 }

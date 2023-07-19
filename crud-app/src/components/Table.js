@@ -1,6 +1,7 @@
+import { Button } from 'bootstrap'
 import React from 'react'
 
-export default function Table({users, deleteUser}) {
+export default function Table({users, deleteUser, updateUser, handleUpdatedName, updatedName}) {
     return (
         <table className='table table-striped'>
             <caption>My Table</caption>
@@ -10,6 +11,7 @@ export default function Table({users, deleteUser}) {
                 <th>Job Title</th>
                 <th>Company</th>
                 <th>Delete User</th>
+                <th>Update User Name</th>
             </tr>
             </thead>
             <tbody>
@@ -19,6 +21,10 @@ export default function Table({users, deleteUser}) {
                         <td>{user.jobTitle}</td>
                         <td>{user.companyName}</td>
                         <td><button onClick={() => deleteUser(user.id)} className='btn'>🗑</button></td>
+                        <td>
+                        <input  value={updatedName} onInput={(e) => handleUpdatedName(e.target.value)} placeholder='Enter New Name'></input>
+                        <button onClick={(e) => updateUser(user)} className='btn'>✎</button>
+                        </td>
                     </tr>
                 ))}
             </tbody>

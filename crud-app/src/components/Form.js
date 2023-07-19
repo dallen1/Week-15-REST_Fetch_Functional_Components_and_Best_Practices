@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function Form({
+    newUser,
     postUser,
     handleName,
     handleJobTitle,
@@ -10,11 +11,11 @@ export default function Form({
         <form className='myForm' onSubmit={(e) => postUser(e)}>
             <h3>Post New User</h3>
             <label>Name</label>
-            <input onChange={(e) => handleName(e.target.value)}></input>
+            <input value={newUser.name} onChange={(e) => handleName(e.target.value)}></input>
             <label>Job Title</label>
-            <input onChange={(e) => handleJobTitle(e.target.value)}></input>
+            <input value={newUser.jobTitle} onChange={(e) => handleJobTitle(e.target.value)}></input>
             <label>Company</label>
-            <input onChange={(e) => handleCompanyName(e.target.value)}></input><br/>
+            <input value={newUser.companyName} onChange={(e) => handleCompanyName(e.target.value)}></input><br/>
             <button className='btn btn-primary'>Submit</button>
         </form>
     )
