@@ -26,8 +26,6 @@ const [updatedName, setUpdatedName] = useState('')
 
 function handleUpdatedName (updatedNameValue) {
   setUpdatedName(updatedNameValue)
-  
-
 }
 
 const clearName = () => {
