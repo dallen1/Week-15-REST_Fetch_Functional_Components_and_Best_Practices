@@ -3,7 +3,9 @@ import React, {useState} from 'react'
 
 export default function Table({users, deleteUser, updateUser, handleUpdatedName, clearName, updatedName}) {
 
-    const [show,setShow] = useState({});
+    const [show,setShow] = useState({
+        0 : false
+    });
 
     const toggleShow = (index) => {
         setShow({
