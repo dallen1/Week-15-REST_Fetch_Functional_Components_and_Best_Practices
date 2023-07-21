@@ -4,7 +4,7 @@ import {useState, useEffect} from 'react'
 import Form from './components/Form'
 import "../node_modules/bootstrap/dist/css/bootstrap.css"
 
-
+//mostly a follow along with https://www.youtube.com/watch?v=INOZuE-gGv0&t=1645s
 function App() {
 
   const MOCK_API_URL = 'https://64b6e2aedf0839c97e163e47.mockapi.io/user'
